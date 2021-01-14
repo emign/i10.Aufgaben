@@ -1,1 +1,22 @@
 enableFeaturePreview("GRADLE_METADATA")
+
+String moduleName(File f) {
+    if (f.parentFile == rootDir || f.parentFile == null) {
+        return f.name
+    } else {
+        def p = moduleName(f.parentFile)
+        return "${p}:${f.name}"
+    }
+}
+
+fileTree(rootProject.projectDir) {
+    include("**"+"/build.gradle.kts")
+    include("**"+"/build.gradle")
+    exclude("**"+"/build/**")
+}.forEach {
+    if (it.parentFile != null && !it.path.contains("korge-bundles")) {
+        def sample = moduleName(it.parentFile)
+        include(":$sample")
+    }
+    //project(":$sample").projectDir = File(relativePath(it.parent))
+}
