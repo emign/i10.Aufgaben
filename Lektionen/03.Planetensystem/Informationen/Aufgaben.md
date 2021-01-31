@@ -3,12 +3,22 @@ Wir wollen Planetensystem animieren, in welchem Planeten um die Sonne kreisen. H
 
 # Vorbereitungen
 Erstellen Sie die Klassen `Stern`, `Planet`, `Gasplanet`, `Gesteinsplanet` und `Umlaufbahn` nach dem folgenden Klassendiagramm. Legen Sie hierzu die entsprechenden .kt Dateien im src\commonMain\kotlin Ordner an. Tragen  Sie die angegebenen Properties ein. Verwenden Sie hierzu bevorzugt die kurze Version über die Angabe der Properties im Konstruktor. 
-![Klassendigramm](Klassendiagramm.png)
+![Klassendigramm](Bilder/Klassendiagramm.png)
+
+Hinweis: Um den Datentypen `RGBA` zu verwenden und Zugriff auf `Colors` zu erhalten, müssen Sie die folgenden Zeilen an den Anfang der entsprechenden Datei setzen (entweder manuell
+oder indem Sie auf `RGBA` und `Colors` klicken und `Import` (Kurztaste: ALT+Enter) wählen:
+```
+import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
+```
 
 # Die Klasse Stern
 Ein Stern hat eine Größe, welche wir als den Radius eines Kreises interpretieren. Mit Hilfe von Vererbung, geben wir die Parameter einfach an die Klasse `Circle` weiter:
 
 ```
+import com.soywiz.korge.view.Circle
+import com.soywiz.korim.color.Colors
+
 class Stern(groesse : Double = 50.0) : Circle(radius = groesse, fill = Colors.YELLOW)
 ```
 
@@ -24,11 +34,13 @@ suspend fun main() = Korge(width = 1600, height = 1000, bgcolor = Colors["#2b2b2
     }
 ```
 
+Führen Sie das Projekt anschließend mit dem Gradle-Task `runJvm` aus. Achten Sie darauf, dass sie den Task auch aus der richtigen Lektion auswählen.
+
 # Planeten, Gasplaneten und Gesteinsplaneten
 Informieren Sie sich ggf. über die Unterschiede zwischen Gesteins- und Gasplaneten.
-Das` <<abstract>> ` in der Klassenkarte von `Planet`bedeutet, dass es sich hierbei um eine abstrakte Klasse handelt.
+Das` <<abstract>> ` in der Klassenkarte von `Planet` bedeutet, dass es sich hierbei um eine abstrakte Klasse handelt.
 Von abstrakten Klassen kann man selbst keine Objekte erzeugen ("man kann sie nicht instanziieren"). Aber wir können von ihnen erben und damit Struktur in unseren Entwurf bringen. Abstrakte Klassen können nämlich neben ganz regulären **konkreten** Funktionen auch **abstrakte** Funktionen enthalten (sobald eine Funktion in einer Klasse abstrakt ist, muss die ganze Klasse als abstrakt markiert werden).
-Abstrakte Methoden haben keinen Funktionsrumpf (keine Implementierung in den geschweiften Klammern) sondern nur einen Funktionskopf. Alle Subklassen einer abstrakten Klasse müssen dann diese abstrakten Funktionen überschreiben und so eine konkrete Implementierung zur Verfügung stellen (siehe Code-Beispiel)
+Abstrakte Methoden haben keinen Funktionsrumpf (keine Implementierung in den geschweiften Klammern) sondern nur einen Funktionskopf. Alle Subklassen einer abstrakten Klasse **müssen** dann diese abstrakten Funktionen überschreiben und so eine konkrete Implementierung zur Verfügung stellen (siehe Code-Beispiel)
 Man kann also voraussetzen, dass alle Subklassen einer abstrakten Klasse für alle in der Superklasse deklarierten abstrakten Funktionen eine Implementierung besitzen.
 ```
 // Abstrakte Klassen werden mit abstract gekennzeichnet
@@ -86,6 +98,10 @@ Bei den Planeten erreichen wir durch den Einsatz der abstrakten Klasse hauptsäc
 Erstellen Sie die Klasse nach dem folgenden Vorbild:
 
 ```
+import com.soywiz.korge.view.Circle
+import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
+
 abstract class Planet (var planetenRadius: Double = 100.0,
                        var bahnradius : Double = 100.0,
                        var farbe: RGBA = Colors.GREEN,
@@ -102,7 +118,7 @@ abstract class Planet (var planetenRadius: Double = 100.0,
     }
 
     fun animate(){
-       // HIER MUSS CODE HIN, DER DIE KREISBAHN ANIMIERT (siehe weiter unten in der Anleitung)
+        // HIER MUSS CODE HIN, DER DIE KREISBAHN ANIMIERT (siehe weiter unten in der Anleitung)
     }
 }
 ```
@@ -131,7 +147,7 @@ simulieren wollen. Erzeugen Sie die Klassen Gesteins- und Gasplanet so, dass Sie
 ```
 
 Fügen Sie alle Planeten unseres Sonnensystems zur `Stage` hinzu und passen Sie so lange die Parameter an, bis sie korrekt angezeigt werden. Eine mögliche Abbildung sehen sie hier:
-![Planetensystem](Planetensystem.png)
+![Planetensystem](Bilder/Planetensystem.png)
 
 
 # Rotation der Planeten
@@ -144,12 +160,12 @@ https://www.youtube.com/watch?v=f0mXhwt0aCY
 Jetzt wissen wir auch, wozu die Properties `winkel` und `umlaufGeschwindigkeit` aus der Klasse `Umlaufbahn` nötig sind.
 
 Jetzt können wir die x- und y-Koordinaten endlich berechnen. Ändern Sie dazu die `animate()` Funktion in der Klasse `Planet` so ab, dass sie die folgenden Berechnen erfüllt.
-1. Berechnung der x-Koordinate mit Hilfe des Cosinus
-2. Berechnung der y-Koordinate mit Hilfe des Sinus
+1. Berechnung der x-Koordinate mit Hilfe des Cosinus (vergessen Sie nicht, den Bahnradius zu multiplizieren)
+2. Berechnung der y-Koordinate mit Hilfe des Sinus  (vergessen Sie nicht, den Bahnradius zu multiplizieren)
 3. Addieren Sie `umlaufbahn.centerX` und ` umlaufbahn.centerY` zu den zugehörigen Werten und weisen Sie das Ergebnis den `x` und `y` Koordinaten zu
 4. Zum Ende der `animate()` Funktion muss noch der Winkel im umlaufbahn-Objekt um die Umlaufgeschwindigkeit erhöht werden (`umlaufbahn.winkelAktualisieren()`).
+5. Implementieren Sie die Funktion `umlaufbahn.winkelAktualisieren()`, so dass jeden Aufruf die Winkelgeschwindigkeit auf den Winkel addiert wird.
 
-Die `animate()` Funktion eines jeden Planeten müssen sie in der `addUpdater` Funktion aufrufen, dass eine Bewegung sichtbar wird. 
 > Kotlin liefert Funktionen für Sinus und Cosinus Berechnungen mit. Um diese zu nutzen, müssen sie `kotlin.math.*` ganz oben in ihrer `Planet.kt` Datei importieren.
 ```kotlin
 import kotlin.math.*
