@@ -1,6 +1,10 @@
 # Allgemeines
 Wir wollen Planetensystem animieren, in welchem Planeten um die Sonne kreisen. Hier werden wir abstrakte Klassen kennen lernen und eine etwas kompliziertere Berechnung für die Animation.
 
+## Allgemeiner Hinweis
+Bitte achten Sie darauf, beim Ausführen jeweils den korrekten Gradle Task (`runJvm`) aus der richtigen Lektions-Untergruppe zu verwenden:
+![Gradle Task](Bilder/gradleTask.png)
+
 # Vorbereitungen
 Erstellen Sie die Klassen `Stern`, `Planet`, `Gasplanet`, `Gesteinsplanet` und `Umlaufbahn` nach dem folgenden Klassendiagramm. Legen Sie hierzu die entsprechenden .kt Dateien im src\commonMain\kotlin Ordner an. Tragen  Sie die angegebenen Properties ein. Verwenden Sie hierzu bevorzugt die kurze Version über die Angabe der Properties im Konstruktor. 
 ![Klassendigramm](Bilder/Klassendiagramm.png)
