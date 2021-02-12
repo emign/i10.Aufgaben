@@ -182,6 +182,8 @@ Stellen Sie eine moderate Umlaufgeschwindigkeit ein (denken Sie an die Einheit R
 1. Geben Sie jedem Planete eine eigene Umlaufgeschwindigkeit
 2. Fügen Sie einen Hintergrund ein, der das Weltall und einzelne entfernte Sterne zeigt
 3. Ersetzen Sie die geometrischen Kreisfiguren der Planeten durch Bilder. Informationen hierzu finden Sie in der PDF-Datei im Informationen Ordner. 
+   Falls Sie die Anzeige von Bildern (als Planeten) durch Vererbung lösen wollen, müssen sie allerdings `Planet` von der Klasse `BaseImage` erben lassen. Die Klasse `Image` erbt 
+   selbst von `BaseImage` und wird benötigt, wenn man ohne Vererbung Bilder direkt zur `Stage` hinzufügen möchte.
    Alle Planetenbilder befinden sich bereits im resources Ordner. Einen Hintergrund (Weltall) müssen Sie selbst finden und integrieren.
 4. Um die Umlaufbahnen etwas realistischer aussehen zu lassen, können wir die Kreisbahnen in Ellipsen verwandeln. Modifizieren Sie hierzu die x- oder y-Koordinaten der Umlaufbahn (etwa durch 2 Teilen)
 5. Manche Planeten können auch Monde haben. Fügen Sie Monde ein, indem Sie einer Klasse `Mond` eine `Planet`-Property geben, um den dieser kreist. Der `Mond` soll einfach eine Kreisbwegung um den (sich ständig ändernden) Mittelpunkt des Planeten machen.
