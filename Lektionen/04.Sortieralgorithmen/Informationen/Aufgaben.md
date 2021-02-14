@@ -1,189 +1,96 @@
-# Allgemeines
-Wir wollen Planetensystem animieren, in welchem Planeten um die Sonne kreisen. Hier werden wir abstrakte Klassen kennen lernen und eine etwas kompliziertere Berechnung für die Animation.
+# Der Sortierroboter
 
-## Allgemeiner Hinweis
-Bitte achten Sie darauf, beim Ausführen jeweils den korrekten Gradle Task (`runJvm`) aus der richtigen Lektions-Untergruppe zu verwenden:
-![Gradle Task](Bilder/gradleTask.png)
+Wir wollen einen Sortierroboter bauen, welcher unterschiedliche Sortieralgorithmen verwenden kann.
 
-# Vorbereitungen
-Erstellen Sie die Klassen `Stern`, `Planet`, `Gasplanet`, `Gesteinsplanet` und `Umlaufbahn` nach dem folgenden Klassendiagramm. Legen Sie hierzu die entsprechenden .kt Dateien im src\commonMain\kotlin Ordner an. Tragen  Sie die angegebenen Properties ein. Verwenden Sie hierzu bevorzugt die kurze Version über die Angabe der Properties im Konstruktor. 
-![Klassendigramm](Bilder/Klassendiagramm.png)
+## Einführung
+Sortieralgorithmen sind in der Informatiker-Ausbildung sehr beliebt. Wir werden in der zugehörigen Übung Arrays mit verschiedenen Sortieralgorithmen sortieren.
+Darunter BubbleSort und SelectionSort. Es gibt aber noch viel [mehr solcher](https://de.wikipedia.org/wiki/Sortierverfahren) Algorithmen
 
-Hinweis: Um den Datentypen `RGBA` zu verwenden und Zugriff auf `Colors` zu erhalten, müssen Sie die folgenden Zeilen an den Anfang der entsprechenden Datei setzen (entweder manuell
-oder indem Sie auf `RGBA` und `Colors` klicken und `Import` (Kurztaste: ALT+Enter) wählen:
-```
-import com.soywiz.korim.color.Colors
-import com.soywiz.korim.color.RGBA
-```
+## Algorithmen allgemein
 
-# Die Klasse Stern
-Ein Stern hat eine Größe, welche wir als den Radius eines Kreises interpretieren. Mit Hilfe von Vererbung, geben wir die Parameter einfach an die Klasse `Circle` weiter:
+Ein Algorithmus ist ein
+> Verfahren mit einer endlichen  Beschreibung unter Verwendung wohldefinierter Einzelanweisungen.
+ 
+Beachten Sie, dass die Beschreibung endlich sein muss, nicht die Laufzeit/Ausführung. Ein wohldefinierter Einzelschritt ist eindeutig beschrieben und auch tatsächlich ausführbar.
+Die Beschreibung muss nicht unbedingt in einer Programmiersprache festgehalten sein. Dies ist zum Beispiel auch ein Algorithmus:
 
 ```
-import com.soywiz.korge.view.Circle
-import com.soywiz.korim.color.Colors
-
-class Stern(groesse : Double = 50.0) : Circle(radius = groesse, fill = Colors.YELLOW)
+    Handy in die Hand nehmen
+    Nummer wählen
+    Sprechen
+    Auflegen
 ```
 
-Hinweis: Der Datentyp `RGBA` ist derjenige Datentyp, den das `Colors.` Singleton zurück gibt. Sie können hier also der Property `fill` etwa den Wert `Colors.YELLOW` zuweisen
+Die meisten Algorithmen sind jedoch sicherlich in Programmiersprachen festgehalten. Solche für Compiler formulierte Algorithmen nennt man Programme.
+Ein Programm in Ausführung nennt man Prozess. Algorithmen können verschiedene Eigenschaften besitzen.
 
-Bearbeiten Sie die `main.kt` so, dass ihr Sonnenobjekt angezeigt und zentriert wird. Wählen Sie jetzt auch großzügige Werte für `height` und `width` des Fensters im Korge Konstruktor
+### Eigenschaften von Algorithmen
+#### Terminiertheit
+Der Algorithmus kommt nach einer endlichen Anzahl von Schritten zu einem Ende
+
+#### Determiniertheit
+Die gleiche Eingabe eines Algorithmus erzeugt auch die gleiche Ausgabe
+
+#### Determinisimus
+Zu jedem Zeitpunkt der Ausführung muss der nächste Schritt eindeutig definiert sein
+
+## Sortieralgorithmen
+
+Die Motivation für die Verwendung von Sortieralgorithmen in der Informatik-Ausbildung ist vielgestaltig. Ein großer Teil der weltweiten Rechenleistung fließt in das Sortieren. 
+Kaum ein Medium stellt Informationen unsortiert dar. Ebenso ist das Suchen in Informationssystemen eine [ubiquitäre](https://de.wiktionary.org/wiki/ubiquitär) Operation. 
+In sortierten Datensätzen lässt es sich deutlich schneller suchen. Möchte ich in einem unsortieren Array der Länge *n* wissen, ob das Element X enthalten ist, muss ich n-Mal vergleichen.
+In einem sortierten Array sind weniger Vergleiche notwendig, da ich aufhören kann, weiter zu Forschen, wenn ich in der Sortierreihenfolge bei einem Wert angekommen bin, 
+der den von Element X über-/unterschritten hat. Zudem ist das [EVA-Prinzip](https://de.wikipedia.org/wiki/EVA-Prinzip) hier wunderbar offenkundig.
+Zu guter Letzt erkennt das menschliche Gehirn besonders schnell, ob Datensätze sortiert sind. Wir können also sehr schnell überprüfen, ob unser Sortieralgorithmus korrekte Ergebnisse liefert.
+
+# Aufgabe
+
+![Fenster](Bilder/Sortieralgorithmen.png)
+
+Dieses Programm besteht aus drei wichtigen Komponenten. Die Klasse `SortierRoboter` ist die zentrale Verwaltungsstelle, mit welcher wir als Programmierer sprechen.
+Sie stellt eine Schnittstelle zur Verfügung, mit der wir interagieren. Die für Sie relevanten Funktionen können Sie in der Klasse `SortierRoboter`
+erkennen, da sie mit einer Beschreibung versehen sind. 
+Die restlichen Funktionen sind für das Bearbeiten der Aufgabe irrelevant. Wie Sie den Sortierroboter starten, sehen Sie in der `main.kt`.
+Führen Sie das Programm jetzt einmal aus und machen Sie sich mit dem Vorgehen vertraut.
+
+![Fenster](Bilder/Fenster.png)
+
+Voreingestellt ist der `KotlinSortierer`. Dieser verwendet einen bei Kotlin mitgelieferten Algorithmus.
+Hier ist es nicht möglich, die Zwischenschritte anzeigen zu lassen, daher wird bei ihrem ersten Test die 
+Rechteckreihe auf einen Schlag sortiert sein.
+
+## Singletons
+Bei allen Klassen die wie hier verwenden, handelt es sich um Singletons. Das sind Klassen, von denen
+nur ein *einziges* Objekt erzeugt werden kann. Aus diesem Grund können wir ohne Konstruktorklammern beim 
+Erzeugen von Singleton-Objekten arbeiten:
 ```
-suspend fun main() = Korge(width = 1600, height = 1000, bgcolor = Colors["#2b2b2b"]) {
-    val sonne = Stern()
-    sonne.x = this.width/2 - sonne.radius
-    sonne.y = this.height/2 - sonne.radius
-    addChild(sonne)
-    }
-```
+// So muss das aussehen:
+SortierRoboter.algorithmus = BubbleSort
 
-Führen Sie das Projekt anschließend mit dem Gradle-Task `runJvm` aus. Achten Sie darauf, dass sie den Task auch aus der richtigen Lektion auswählen.
-
-# Planeten, Gasplaneten und Gesteinsplaneten
-Informieren Sie sich ggf. über die Unterschiede zwischen Gesteins- und Gasplaneten.
-Das` <<abstract>> ` in der Klassenkarte von `Planet` bedeutet, dass es sich hierbei um eine abstrakte Klasse handelt.
-Von abstrakten Klassen kann man selbst keine Objekte erzeugen ("man kann sie nicht instanziieren"). Aber wir können von ihnen erben und damit Struktur in unseren Entwurf bringen. Abstrakte Klassen können nämlich neben ganz regulären **konkreten** Funktionen auch **abstrakte** Funktionen enthalten (sobald eine Funktion in einer Klasse abstrakt ist, muss die ganze Klasse als abstrakt markiert werden).
-Abstrakte Methoden haben keinen Funktionsrumpf (keine Implementierung in den geschweiften Klammern) sondern nur einen Funktionskopf. Alle Subklassen einer abstrakten Klasse **müssen** dann diese abstrakten Funktionen überschreiben und so eine konkrete Implementierung zur Verfügung stellen (siehe Code-Beispiel)
-Man kann also voraussetzen, dass alle Subklassen einer abstrakten Klasse für alle in der Superklasse deklarierten abstrakten Funktionen eine Implementierung besitzen.
-```
-// Abstrakte Klassen werden mit abstract gekennzeichnet
-abstract class Person{
-// Abstrakte Properties müssen in den Subklassen initialisiert werden
-abstract var alter : Int
-abstract var vorname : String
-abstract var nachname : String
-
-    // Konkrete Properties werden regulär vererbt
-    var schule = "asg"
-    
-    // Abstrakte Funktionen müssen in den Subklassen überschrieben werden
-    // Sie haben keine Implementierung in der abstrakten Superklasse
-    abstract fun grüßen()
-    
-    // Konkrete Funktionen werden regulär vererbt
-    fun schuleAusgeben(){
-        println("Ich gehe auf das $schule")
-    }
-}
-
-class Schüler(override var alter : Int = 0,
-override var vorname : String = "",
-override var nachname : String = "") : Person(){
-
-    override fun grüßen(){
-        println("$vorname $nachname : Guten Morgen Herr Lehrer")
-    }  
-}
-
-class Lehrer(override var alter : Int = 0,
-override var vorname : String = "",
-override var nachname : String = "") : Person(){
-
-    override fun grüßen(){
-        println("$vorname $nachname : Guten Morgen zusammen")
-    }  
-}
-
-fun main(){
-var herrMeier = Lehrer(55, "Peter", "Meier")
-var linus = Schüler(15, "Linus", "Eisenbart")
-
-    herrMeier.grüßen()
-    linus.grüßen()
-}
-```
-> Damit haben wir auch schon den Zweck von abstrakten Klassen: Man schafft eine vordefinierte Schnittstelle, der alle Subklassen gehorchen (müssen)
-
-Im Planetenbeispiel macht das Sinn: Jeder Planet in unserem Sonnensystem ist ein `Gesteinsplanet` oder ein `Gasplanet`. Also werden von diesen Klassen Objekte erstellt. Beide Klassen erben aber von `Planet`, da es redundant wäre, wenn man gemeinsames Verhalten oder Zustände (die ja Objekte beider Subklassen auch besitzen) mehrmals deklarieren müsste.
-Bei den Planeten erreichen wir durch den Einsatz der abstrakten Klasse hauptsächlich, dass wir Instanzen von `Planet` verbieten und nur Instanzen von `Gesteinsplanet`oder `Gasplanet` erlauben.
-
-## Die Klasse Planet
-Erstellen Sie die Klasse nach dem folgenden Vorbild:
-
-```
-import com.soywiz.korge.view.Circle
-import com.soywiz.korim.color.Colors
-import com.soywiz.korim.color.RGBA
-
-abstract class Planet (var planetenRadius: Double = 100.0,
-                       var bahnradius : Double = 100.0,
-                       var farbe: RGBA = Colors.GREEN,
-                       var farbeHuelle: RGBA = farbe,
-                       var dickeHuelle: Double = 0.0,
-                       drehtSichUm: Stern,
-                       mitGeschwindigkeit: Double = 0.0) :
-    Circle(radius = planetenRadius, fill = farbe, stroke = farbeHuelle, strokeThickness = dickeHuelle){
-
-    var umlaufbahn = Umlaufbahn(drehtSichUm, bahnradius, mitGeschwindigkeit)
-
-    init {
-        // HIER MUSS CODE HIN, DER DEN PLANETEN AUTOMATISCH RECHTS NEBEN DIE SONNE SETZT      
-    }
-
-    fun animate(){
-        // HIER MUSS CODE HIN, DER DIE KREISBAHN ANIMIERT (siehe weiter unten in der Anleitung)
-    }
-}
-```
-## Gasplaneten und Gesteinsplaneten
-Der einzige Unterschied zwischen Gesteins- und Gasplaneten ist, dass Gasplaneten bei uns eine Hülle erhalten sollen, die wir mit einem farblich abgesetzten Rand um den Kreis
-simulieren wollen. Erzeugen Sie die Klassen Gesteins- und Gasplanet so, dass Sie die Planeten nach dem folgenden Vorgaben erzeugen könnten:
-
-### Gesteinsplanet
-```
-    val merkur = Gesteinsplanet(groesse = 10.0, 
-        bahnradius = 120.0, 
-        farbe = Colors.MEDIUMAQUAMARINE, 
-        drehtSichUm = sonne, 
-        mitGeschwindigkeit = 0.1 )
+// Würden wir ohne Singletons arbeiten und ein neues BubbleSort-Objekt zuweisen wollen, würden wir
+// das so schreiben:
+SortierRoboter.algorithmus = BubbleSort()
 ```
 
-### Gasplanet
-```
-    val jupiter = Gasplanet(groesse = 40.0,
-        bahnradius = 330.0, 
-        farbe = Colors.CORAL, 
-        farbeHuelle = Colors.WHITE, 
-        dickeHuelle = 10.0, 
-        drehtSichUm = sonne, 
-        mitGeschwindigkeit = 0.07  )
-```
 
-Fügen Sie alle Planeten unseres Sonnensystems zur `Stage` hinzu und passen Sie so lange die Parameter an, bis sie korrekt angezeigt werden. Eine mögliche Abbildung sehen sie hier:
-![Planetensystem](Bilder/Planetensystem.png)
+## Sortierroboter in Aktion
+Wenn wir auf den angezeigten Namen des Sortieralgorithmus klicken, schickt der Sortierroboter den Befehl
+an den Sortieralgorithmus, der in der Property `SortierRoboter.algorithmus` referenziert ist. Zu welcher Klasse
+dieser Sortieralgorithmus gehört, weiß der Roboter gar nicht. Er weiß nur, dass *alle* Sortieralgorithmen
+eine Subklasse von der abstrakten Klasse `Sortieralgorithmus` sind und daher die Funktion `sortieren()`
+besitzen müssen. Diese kann er also -egal welcher Algorithmus dahinter steckt- aufrufen. Der Empfänger
+dieses Aufrufs kann also viele Gestalten (Subklassen von `Sortieralgorithmus`) haben. Dieses Programmier-
+Paradigma nennt man [Polymorphie](https://de.wikipedia.org/wiki/Polymorphie_(Programmierung)). Stellen Sie
+unbedingt sicher, dass Sie dieses Konzept verstanden haben.
+
+## Handlungsanweisung
+Ihre Aufgabe ist es also, Subklassen von `Sortieralgorithmus` zu erstellen und diese dem `SortierRoboter` 
+in der richtigen Property (`.algorithmus`) zuzuweisen. In der Funktion `sortieren()` ihres Sortieralgoritmus
+soll das Array, welches Rechteckte (`SolidRect`) enthält, nach dem Sortierverfahren des Algorithmus
+sortiert werden.
+
+1. Implementieren Sie InsertionSort wie in diesen Videos ([Sortierroboter](), [InsertionSort]()) erklärt
+2. Implementieren Sie SelectionSort wie in [diesem Video](https://www.youtube.com/watch?v=Q45ydkcDR8k) erklärt
+3. Implementieren Sie BubbleSort wie in [diesem Video](https://www.youtube.com/watch?v=VAZNrIHZ0WE) erklärt
 
 
-# Rotation der Planeten
-Jetzt sollen die Planeten natürlich in Kreisbahnen um die Sonne rotieren. Lineare Bewegungen haben wir ja schon kennen gelernt. Hierzu musste man einfach die x- und y-Koordinaten erhöhen. Jetzt brauchen wir aber eine Möglichkeit, die x und y-Koordinaten so zu berechnen, dass sie eine Kreisbahn beschreiben. Bevor Sie sich das folgende Video ansehen, sollten Sie sich selbst kurz überlegen, ob Sie eine Idee haben, wie wir die x- und y-Koordinaten auf dieser Kreisbahn berechnen.
-
-## Geometrie am Kreis
-https://www.youtube.com/watch?v=f0mXhwt0aCY
-
-## Ergänzen der Klassen
-Jetzt wissen wir auch, wozu die Properties `winkel` und `umlaufGeschwindigkeit` aus der Klasse `Umlaufbahn` nötig sind.
-
-Jetzt können wir die x- und y-Koordinaten endlich berechnen. Ändern Sie dazu die `animate()` Funktion in der Klasse `Planet` so ab, dass sie die folgenden Berechnen erfüllt.
-1. Berechnung der x-Koordinate mit Hilfe des Cosinus (vergessen Sie nicht, den Bahnradius zu multiplizieren)
-2. Berechnung der y-Koordinate mit Hilfe des Sinus  (vergessen Sie nicht, den Bahnradius zu multiplizieren)
-3. Addieren Sie `umlaufbahn.centerX` und ` umlaufbahn.centerY` zu den zugehörigen Werten und weisen Sie das Ergebnis den `x` und `y` Koordinaten zu
-4. Zum Ende der `animate()` Funktion muss noch der Winkel im umlaufbahn-Objekt um die Umlaufgeschwindigkeit erhöht werden (`umlaufbahn.winkelAktualisieren()`).
-5. Implementieren Sie die Funktion `umlaufbahn.winkelAktualisieren()`, so dass jeden Aufruf die Winkelgeschwindigkeit auf den Winkel addiert wird.
-
-> Kotlin liefert Funktionen für Sinus und Cosinus Berechnungen mit. Um diese zu nutzen, müssen sie `kotlin.math.*` ganz oben in ihrer `Planet.kt` Datei importieren.
-```kotlin
-import kotlin.math.*
-```
-
-## Fine Tuning
-Stellen Sie eine moderate Umlaufgeschwindigkeit ein (denken Sie an die Einheit Radiant -> Kleine Werte unter 1 für die Geschwindigkeit vergeben)
-
-# Aufgaben
-1. Geben Sie jedem Planete eine eigene Umlaufgeschwindigkeit
-2. Fügen Sie einen Hintergrund ein, der das Weltall und einzelne entfernte Sterne zeigt
-3. Ersetzen Sie die geometrischen Kreisfiguren der Planeten durch Bilder. Informationen hierzu finden Sie in der PDF-Datei im Informationen Ordner. 
-   Falls Sie die Anzeige von Bildern (als Planeten) durch Vererbung lösen wollen, müssen sie allerdings `Planet` von der Klasse `BaseImage` erben lassen. Die Klasse `Image` erbt 
-   selbst von `BaseImage` und wird benötigt, wenn man ohne Vererbung Bilder direkt zur `Stage` hinzufügen möchte.
-   Alle Planetenbilder befinden sich bereits im resources Ordner. Einen Hintergrund (Weltall) müssen Sie selbst finden und integrieren.
-4. Um die Umlaufbahnen etwas realistischer aussehen zu lassen, können wir die Kreisbahnen in Ellipsen verwandeln. Modifizieren Sie hierzu die x- oder y-Koordinaten der Umlaufbahn (etwa durch 2 Teilen)
-5. Manche Planeten können auch Monde haben. Fügen Sie Monde ein, indem Sie einer Klasse `Mond` eine `Planet`-Property geben, um den dieser kreist. Der `Mond` soll einfach eine Kreisbwegung um den (sich ständig ändernden) Mittelpunkt des Planeten machen.
