@@ -9,7 +9,7 @@ Darunter BubbleSort und SelectionSort. Es gibt aber noch viel [mehr solcher](htt
 ## Algorithmen allgemein
 
 Ein Algorithmus ist ein
-> Verfahren mit einer endlichen  Beschreibung unter Verwendung wohldefinierter Einzelanweisungen.
+> Verfahren mit einer endlichen Beschreibung unter Verwendung wohldefinierter Einzelanweisungen.
  
 Beachten Sie, dass die Beschreibung endlich sein muss, nicht die Laufzeit/Ausführung. Ein wohldefinierter Einzelschritt ist eindeutig beschrieben und auch tatsächlich ausführbar.
 Die Beschreibung muss nicht unbedingt in einer Programmiersprache festgehalten sein. Dies ist zum Beispiel auch ein Algorithmus:
@@ -89,7 +89,7 @@ in der richtigen Property (`.algorithmus`) zuzuweisen. In der Funktion `sortiere
 soll das Array, welches Rechteckte (`SolidRect`) enthält, nach dem Sortierverfahren des Algorithmus
 sortiert werden.
 
-1. Implementieren Sie InsertionSort wie in diesen Videos ([Sortierroboter](), [InsertionSort]()) erklärt
+1. Implementieren Sie InsertionSort wie in diesen Videos ([Sortierroboter](https://youtu.be/fVgdCvA9FdQ), [InsertionSort](https://youtu.be/yzzsLi2mDqk)) erklärt
 2. Implementieren Sie SelectionSort wie in [diesem Video](https://www.youtube.com/watch?v=Q45ydkcDR8k) erklärt
 3. Implementieren Sie BubbleSort wie in [diesem Video](https://www.youtube.com/watch?v=VAZNrIHZ0WE) erklärt
 
