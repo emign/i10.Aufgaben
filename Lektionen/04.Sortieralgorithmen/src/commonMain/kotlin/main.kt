@@ -9,7 +9,7 @@ suspend fun main() = Korge(width = 600, height = 250, bgcolor = Colors["#2b2b2b"
     SortierRoboter.arrayErzeugen(100)
 
     // Weist dem Sortierroboter einen Sortieralgorithmus zu
-    SortierRoboter.algorithmus = InsertionSort
+    SortierRoboter.algorithmus = KotlinSortierer
 
     // Wartezeit zwischen den einzelnen Sortierschritten
     // Diesen Wert kann man anpassen, falls das Programm zu schnell oder zu langsam sortiert.
