@@ -89,6 +89,8 @@ in der richtigen Property (`.algorithmus`) zuzuweisen. In der Funktion `sortiere
 soll das Array, welches Rechteckte (`SolidRect`) enthält, nach dem Sortierverfahren des Algorithmus
 sortiert werden.
 
+Hinweis: Link zu einer Seite, welche die unterschiedlichen Sortieralgorithmen visualisiert: [Hier](https://visualgo.net/en/sorting)
+
 1. Implementieren Sie InsertionSort wie in diesen Videos ([InsertionSort verstehen](https://youtu.be/UXae0Ixv918) ,[Sortierroboter](https://youtu.be/fVgdCvA9FdQ), [InsertionSort programmieren](https://youtu.be/yzzsLi2mDqk)) erklärt
 2. Implementieren Sie SelectionSort wie in [diesem Video](https://www.youtube.com/watch?v=Q45ydkcDR8k) erklärt
 3. Implementieren Sie BubbleSort wie in [diesem Video](https://www.youtube.com/watch?v=VAZNrIHZ0WE) erklärt
