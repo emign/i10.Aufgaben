@@ -37,3 +37,30 @@ Der Staubsauger wird viel zu groß sein:
 Verkleinern Sie es indem, sie seine Property `scale` auf eine sinnvolle Größe ändern.
 Diese Abbildung entsteht etwa bei einem Attributwert von `scale = 0.06`
 ![Fenster](Bilder/scale.png)
+
+### Staubsauger KI
+Unser Staubsauger soll natürlich autonom arbeiten und eine Art künstliche Intelligenz besitzen, dass er etwa
+seine Richtung ändert, wenn er an Hindernisse stößt. Er muss also auf verschiedene Ereignisse reagieren können.
+Fügen Sie eine Funktion `entscheiden()` zur Klasse Staubsauger hinzu. Diese Funktion soll jetzt in den Gameloop
+eingebaut werden. Füge also einen Updater zur Stage (`addUpdater{}`) hinzu. In diesem Updater soll die Funktion `entscheiden()` des 
+Staubsaugers aufgerufen werden.
+
+#### Fahren
+Die meiste Zeit soll der Staubsauger ja einfach fahren. Wie wir so etwas erreichen, wurde bereits in den Lektionen zum
+GameLoop und zum PlanetenSystem erklärt. Hier werden wir allerdings noch etwas eleganter vorgehen. Fügen Sie die veränderlichen Properties
+`dx` und `dy` (beide vom Typ `Int`) dem Staubsauger hinzu.
+Diese Delta-x und Delta-y Werte wollen wir auf die aktuellen Koordinaten des Staubsaugers addieren und so seine
+Bewegung simulieren.
+Als Startwerde erzeugen wir zufällige Werte. indem wir einen Zufallsgenertor über das Interval von 0 bis 3 laufen lassen:
+```
+... = (0..3).random()
+```
+Jetzt müssen diese Werte jedes Frame auf die aktuelle x und y Position addiert werden. Fügen Sie hierzu eine Funktion
+``fahren()`` zum Staubsauger hinzu. Addieren Sie in dieser die Werte von `dx` und `dy` auf die Properties `x` und `y` des
+Staubsaugers. Legen Sie das Ergebnis der Addition in `x` und `y` ab.
+Jetzt muss die Funktion ``fahren()`` noch in den Gameloop integriert werden. Da das Fahren ja eine der Entscheidungen
+des Staubsaugers sein soll und die Funktion `entscheiden()` bereits im Gameloop eingeklinkt ist, können wir in dieser
+Funktion (`entscheiden()`) einfach `fahren()` aufrufen.
+
+##### Drehrichtung
+Der Roboter bewegt sich jetzt beim Starten des Programms in einem zufälligen Winkel von seiner Startposition nach rechts unten.
