@@ -17,6 +17,5 @@ suspend fun main() = Korge(width = 600, height = 250, bgcolor = Colors["#2b2b2b"
 
     // Initialisiert den Sortierroboter
     SortierRoboter.initialisieren(this)
-
 }
 
