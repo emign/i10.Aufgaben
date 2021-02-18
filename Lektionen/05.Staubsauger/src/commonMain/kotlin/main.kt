@@ -3,6 +3,7 @@ import com.soywiz.korge.Korge
 import com.soywiz.korge.view.Image
 import com.soywiz.korge.view.addUpdater
 import com.soywiz.korge.view.image
+import com.soywiz.korge.view.scale
 import com.soywiz.korge.view.tiles.TileMap
 import com.soywiz.korge.view.tiles.TileSet
 import com.soywiz.korge.view.tiles.tileMap
@@ -23,6 +24,11 @@ suspend fun main() = Korge(width = 800, height = 600, bgcolor = Colors["#2b2b2b"
     val boden = texturen[1]
 
     bodenlegen(boden)
+
+    val staubsaugerBild = resourcesVfs["staubsauger.png"].readBitmap()
+    val staubsauger = Staubsauger(staubsaugerBild)
+    addChild(staubsauger)
+    staubsauger.scale(0.06)
 
 }
 
