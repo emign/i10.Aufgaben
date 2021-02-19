@@ -2,27 +2,22 @@ import com.soywiz.korge.view.SolidRect
 
 object SelectionSort : Sortieralgorithmus() {
     override var name: String = "SelectionSort"
-
     override suspend fun sortieren(array: Array<SolidRect>) {
-        // Blauer Zeigefinger
-        for (i in array.indices) {
-            var min = array[i].height.toInt()
-            var minPos = i
+        for(i in array.indices){
+            var min = i
             var j = i + 1
-            // orangener Zeigefinger
             while (j < array.size) {
-                SortierRoboter.countVergleich()
-                if (array[j].height.toInt() < min) {
-                    // Neues Minimum gefunden
-                    min = array[j].height.toInt()
-                    minPos = j
+                if (array[min].height > array[j].height) {
+                    min = j
                 }
                 j++
             }
-            val tmp = array[i]
-            array[i] = array[minPos]
-            array[minPos] = tmp
+
+            var a = array[min]
+            array[min] = array[i]
+            array[i] = a
             SortierRoboter.positionenAktualisieren()
+            SortierRoboter.countVergleich()
         }
     }
 }

@@ -35,8 +35,26 @@ Erstellen Sie anschließend ein Staubsauger-Objekt und fügen Sie ist der `Stage
 Der Staubsauger wird viel zu groß sein:
 ![Fenster](Bilder/StaubsaugerZuGross.png)
 Verkleinern Sie es indem, sie seine Property `scale` auf eine sinnvolle Größe ändern.
+Dies soll unbedingt im `init`-Block in der Klasse `Staubsauger` geschehen. Das Attribut `scale` setzt im Übrigen
+die `scaleX` und die `scaleY` auf den angegebenen Wert.
 Diese Abbildung entsteht etwa bei einem Attributwert von `scale = 0.06`
 ![Fenster](Bilder/scale.png)
+Kontrollieren Sie das Ergebnis.
+
+### Anker senken
+Derzeit verwenden die meisten Positionierungsfunktionen als Referenzpunkt den linken oberen Pixel eines `Views` (z.B. einem
+`Image`). Wenn Sie also die x- und y-Positionen setzen, wird das in Relation zu diesem Pixel geschehen. Man nennt das einen Anker.
+Später wollen wir den Staubsauger rotieren. Diese Rotation setzt auch am Anker an. Wir wollen aber den Staubsauger nicht um den
+Standardanker rotieren, sondern um das Zentrum des Bildes.
+![Fenster](Bilder/anker.png)
+Hierzu müssen wir den Anker auf die halbe Höhe und die halbe Breite setzen. Dies machen wir im `init`-Block mit
+```
+anchor(0.5, 0.5)
+```
+Dieser Aufruf muss unbedingt nach der Veränderung der `scale` geschehen.
+Wenn Sie das Ergebnis kontrollieren sehen sie, dass der Roboter nun nur zu einem Viertel sichtbar ist.
+Die x- und y-Positionierung greift jetzt an dem neuen Anker. Da wir keine x- und y-Koordinaten bisher gesetzt haben, sind diese
+einfach `x=0` und `y=0`. Setzen Sie ihren Roboter nun ungefährt in die Mitte des Raumes.
 
 ### Staubsauger KI
 Unser Staubsauger soll natürlich autonom arbeiten und eine Art künstliche Intelligenz besitzen, dass er etwa
@@ -47,27 +65,42 @@ Staubsaugers aufgerufen werden.
 
 #### Fahren
 Die meiste Zeit soll der Staubsauger ja einfach fahren. Wie wir so etwas erreichen, wurde bereits in den Lektionen zum
-GameLoop und zum PlanetenSystem erklärt. Hier werden wir allerdings noch etwas eleganter vorgehen. Fügen Sie die veränderlichen Properties
-`dx` und `dy` (beide vom Typ `Int`) dem Staubsauger hinzu.
-Diese Delta-x und Delta-y Werte wollen wir auf die aktuellen Koordinaten des Staubsaugers addieren und so seine
-Bewegung simulieren. Warten Sie noch kurz mit dem Festlegen von Default-Werten für ``dx`` und `dy`.
-Die Delta-Werte sollen sich nämlich in dem Maße ändern, wie schnell der Roboter unterwegs ist.
-Hierzu führen wir zwei weitere Properties ein. `vx` und `vy` (v für velocity).
-Als Startwerte erzeugen wir für die zufällige Werte für die Geschwindigkeiten. indem wir einen Zufallsgenertor über das Interval von 0 bis 3 laufen lassen:
+GameLoop und zum PlanetenSystem erklärt. Hier werden wir allerdings noch etwas eleganter vorgehen. 
+Wir geben einfach nur einen Winkel an, in welche Richtung sich der Roboter fortbewegen soll und eine Geschwindigkeit.
+Fügen Sie die zwei Properties ein. `vx` und `vy` (v für velocity) vom Typ `Int ein. Hierbei handelt es sich um die Geschwindigkeiten in x- und
+y- Richtung.
+Als Startwerte erzeugen wir zufällige Werte für die Geschwindigkeiten. indem wir einen Zufallsgenertor über das Interval von 1 bis 3 laufen lassen:
 ```
-... = (0..3).random()
+... = (1..3).random()
 ```
-Die Default-Werte von `dx` und `dy` werden jetzt auf `vx` und `vy` gesetzt. (Warum so kompliziert? Gleich mehr dazu bei *Drehrichtung*)
-Jetzt müssen die Delta-Werte jedes Frame auf die aktuelle x und y Position addiert werden. Fügen Sie hierzu eine Funktion
-``fahren()`` zum Staubsauger hinzu. Addieren Sie in dieser die Werte von `dx` und `dy` auf die Properties `x` und `y` des
-Staubsaugers. Legen Sie das Ergebnis der Addition in `x` und `y` ab.
-Jetzt muss die Funktion ``fahren()`` noch in den Gameloop integriert werden. Da das Fahren ja eine der Entscheidungen
-des Staubsaugers sein soll und die Funktion `entscheiden()` bereits im Gameloop eingeklinkt ist, können wir in dieser
-Funktion (`entscheiden()`) einfach `fahren()` aufrufen.
-Führe das Programm nun aus.
 
 ##### Drehrichtung
-Der Roboter bewegt sich jetzt beim Starten des Programms in einem zufälligen Winkel von seiner Startposition nach rechts unten.
-Allerdings sollte sich das Bild des Staubsaugers noch drehen, so dass es tatsächlich so aussieht,
-dass er vorwärts fährt und nicht seitlich driftet. Dazu werden wir eine neue Property ``drehwinkel`` einfügen, welches unser Staubsaugerbild entsprechend
-der Fahrtrichtung rotieren soll.
+Die Bewegung soll automatisch aus der Geschwindigkeit (genauer: aus der x- und y-Komponenente der Geschwindigkeit, s.o.) und dem Drehwinkel 
+generiert werden. Fügen Sie eine Property `drehwinkel` ein. Unser Roboter soll in eine zufällige Richtung losfahren.
+Dies kann man wieder mit einem Zufallsgenerator erreichen:
+```
+var drehwinkel = (0..359).random().degrees
+```
+In der Funktion `fahren()` können wir den Roboter nun einfach mit der Funktion `rotation()` um den Drehwinkel drehen.
+Die Richtung der Drehung können Sie auf dem folgenden Bild ablesen
+
+![Fenster](Bilder/drehwinkel.png)
+
+Testen Sie anschließend das Ergebnis
+
+##### Bewegung
+Jetzt können wir ausrechnen, um wieviele Pixel der Roboter sich in x- und y-Richtung bewegen soll:
+Delta-X (also der Wert um den die x-Koordinate verändert werden soll, kurz `dx` und `dy`) ist das Produkt aus der Geschwindigkeit in x-Richtung
+`vx` und dem Cosinus des Drehwinkels. Genau genommen muss man den Drehwinkel noch um `90.degrees` verringern, dass die Ausrichtung 
+Berechnung der Koordinaten passt. Unser Roboter schaut bei 0° nämlich nach oben und nicht nach rechts.
+Fügen Sie hinter der Rotationsanweisung in der `fahren()` Funktion die Berechnung für `dx` und `dy` aus.
+Hinweis: Um vom `drehwinkel` (Typ `Angle`) `90.degrees` subtrahieren zu können benötigen sie einen Minus-Operator, der dies beherrscht.
+Darüber hinaus sind `cos`, `sin` und `.degrees` Sonderfunktionalitäten. Diese können Sie nutzen, wenn Sie folgende Imports am Anfang
+der Datei hinzufügen:
+```
+import com.soywiz.korma.geom.cos
+import com.soywiz.korma.geom.degrees
+import com.soywiz.korma.geom.minus
+import com.soywiz.korma.geom.sin
+```
+Alternativ können Sie die Imports auch [automatisch hinzufügen lassen](https://www.jetbrains.com/help/idea/creating-and-optimizing-imports.html)

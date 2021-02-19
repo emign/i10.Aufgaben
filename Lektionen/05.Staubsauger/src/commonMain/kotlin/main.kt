@@ -28,7 +28,7 @@ suspend fun main() = Korge(width = 800, height = 600, bgcolor = Colors["#2b2b2b"
     val staubsaugerBild = resourcesVfs["staubsauger.png"].readBitmap()
     val staubsauger = Staubsauger(staubsaugerBild)
     addChild(staubsauger)
-    staubsauger.scale(0.06)
+
 
     addUpdater {
         staubsauger.entscheiden()
