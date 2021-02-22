@@ -7,6 +7,7 @@ object SelectionSort : Sortieralgorithmus() {
             var min = i
             var j = i + 1
             while (j < array.size) {
+                SortierRoboter.countVergleich()
                 if (array[min].height > array[j].height) {
                     min = j
                 }
@@ -17,7 +18,6 @@ object SelectionSort : Sortieralgorithmus() {
             array[min] = array[i]
             array[i] = a
             SortierRoboter.positionenAktualisieren()
-            SortierRoboter.countVergleich()
         }
     }
 }
