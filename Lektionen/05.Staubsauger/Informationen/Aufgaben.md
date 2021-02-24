@@ -110,3 +110,60 @@ Kollisionen erkennt.
 Unser Staubsauger soll nun erkennen können, wenn er gegen ein Hindernis fährt und dann umdrehen und eine andere Richtung einschlagen.
 Hierzu müssen wir erstmal Hindernisse platzieren. Da wir später auch den Kontakt mit aufzusaugendem Schmutz als Kollision handhaben wollen,
 implementieren wir die Hindernisse wie folgt:
+
+![Fenster](Bilder/ObjektWand.png)
+
+Fügen Sie die Klassen entsprechend dem Klassendiagramm hinzu. Bitte beachten Sie, dass es sich bei `Kollisionsrelevant` um ein sog. Interface (deshalb die gestrichelten Linien) handelt:
+```
+interface Kollidierbar {
+}
+```
+Interfaces sind den abstrakten Klassen ähnlich, haben aber einen anderen Schwerpunkt und besitzen demnach Unterschiede.
+1. Klassen implementieren ein Interface. Sie erben von abstrakten Klassen
+2. Klassen können von **einer** abstrakten Klasse erben, aber mehrere Interfaces *implementieren*.
+3. Vererbung: Modellierung der *is-a* Beziehung. Implementierung: Modellierung der *behaves-as* Beziehung
+4. Abstrakte Klassen *können* abstrakte Properties und Funktionen enthalten. In Interfaces sind alle Properties immer abstrakt (deshalb muss man das Wort `abstract` nicht mehr davor schreiben)
+5. Abstrakte Klassen haben Konstruktoren. Interfaces nicht.
+
+Wann nehme ich nun ein Interface und wann nehme ich eine abstrakte Klasse?
+Antwort: Siehe Punkte 2 und 3 
+
+Interfaces kann man genauso einfach in Klassen implementieren, wie bei der Vererbung:
+
+```
+interface Hindernis : Kollisionsrelevant {
+// Hinweis: Es stehen keine () hinter Kollisionsrelevant, da es sich um ein Interface (ohne Konstruktor) handelt.
+}
+```
+
+### Wände
+Wir werden nun Wände platzieren, mit denen der Staubsauger kollidieren kann. Diese Wände erben von `BaseRect` (ein Rechteck) und implementieren `Hindernis`.
+Denn sie sind Rechtecke (is-a) und sollen sich verhalten wie (behaves-as) Hindernisse 
+Erstellen Sie eine Klasse `Wand.kt` und bilden Sie die Vererbungs und Implementierungstruktur ab:
+
+![Fenster](Bilder/ObjektWand2.png)
+
+```
+class Wand(width: Double, height: Double) : BaseRect(width, height), Hindernis {
+}
+```
+
+Warum erben wir nicht von `SolidRect`, sondern von `BaseRect`? `SolidRect` ist nicht als open deklariert.
+Daher können wir davon nicht erben. Zum Glück gibt es `BaseRect`, welches als `open` deklariert ist und die gleiche Funktionalität hat. (vgl. `Image` und `BaseImage`)
+
+Platzieren Sie jetzt in der `main.kt` vier Wände welche die Bodenfläche begrenzen. Wählen Sie als Namen: `wandLinks`, `wandRechts`, `wandOben` und `wandUnten`.
+Setzen Sie anschließend die x- und y-Koordinaten, sowie die Breite und Höhe der Rechtecke, so dass das Zimmer genau die Größe des angezeigten Fensters hat.
+Erinnern Sie sich, dass sie die Höhe und Breite der Stage so abfragen können:
+```
+val breiteStage = this.width
+val hoeheStage = this.height
+```
+LPT: Sie können auch mit negativen Höhen und Breiten der Rechtecke arbeiten. 
+```
+val wandOben = Wand(breiteStage, -100.0)
+val wandLinks = Wand(-100.0, hoeheStage)
+```
+ergibt so Folgendes:
+![Fenster](Bilder/waendeNegativ.png)
+
+

@@ -1,0 +1,2 @@
+interface Schmutz : Kollisionsrelevant{
+}

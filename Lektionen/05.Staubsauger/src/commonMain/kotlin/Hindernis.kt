@@ -1,0 +1,2 @@
+interface Hindernis : Kollisionsrelevant {
+}

@@ -30,6 +30,31 @@ suspend fun main() = Korge(width = 800, height = 600, bgcolor = Colors["#2b2b2b"
     addChild(staubsauger)
 
 
+    val breiteStage = this.width
+    val hoeheStage = this.height
+
+    val wandLinks = Wand(-100.0, hoeheStage).apply {
+        x = 0.0
+        y = 0.0
+    }
+    val wandRechts = Wand(100.0, hoeheStage).apply {
+        x = breiteStage
+        y = 0.0
+    }
+    val wandOben = Wand(breiteStage, -100.0).apply {
+        x = 0.0
+        y = 0.0
+    }
+    val wandUnten = Wand(breiteStage, 100.0).apply {
+        x = 0.0
+        y = hoeheStage
+    }
+
+    //addChild(wandLinks)
+    //addChild(wandRechts)
+    addChild(wandOben)
+    //addChild(wandUnten)
+
     addUpdater {
         staubsauger.entscheiden()
     }
