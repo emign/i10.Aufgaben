@@ -1,7 +1,5 @@
 # Der Staubsaugerroboter
 
-Wir wollen einen Sortierroboter bauen, welcher unterschiedliche Sortieralgorithmen verwenden kann.
-
 ## Vorbereitungen
 
 ### Boden legen
@@ -33,7 +31,7 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
 ```
 Erstellen Sie anschließend ein Staubsauger-Objekt und fügen Sie ist der `Stage` zu.
 Der Staubsauger wird viel zu groß sein:
-![Fenster](Bilder/StaubsaugerZuGross.png)
+![](Bilder/StaubsaugerZuGross.png)
 Verkleinern Sie es indem, sie seine Property `scale` auf eine sinnvolle Größe ändern.
 Dies soll unbedingt im `init`-Block in der Klasse `Staubsauger` geschehen. Das Attribut `scale` setzt im Übrigen
 die `scaleX` und die `scaleY` auf den angegebenen Wert.
@@ -67,9 +65,8 @@ Staubsaugers aufgerufen werden.
 Die meiste Zeit soll der Staubsauger ja einfach fahren. Wie wir so etwas erreichen, wurde bereits in den Lektionen zum
 GameLoop und zum PlanetenSystem erklärt. Hier werden wir allerdings noch etwas eleganter vorgehen. 
 Wir geben einfach nur einen Winkel an, in welche Richtung sich der Roboter fortbewegen soll und eine Geschwindigkeit.
-Fügen Sie die zwei Properties ein. `vx` und `vy` (v für velocity) vom Typ `Int ein. Hierbei handelt es sich um die Geschwindigkeiten in x- und
-y- Richtung.
-Als Startwerte erzeugen wir zufällige Werte für die Geschwindigkeiten. indem wir einen Zufallsgenertor über das Interval von 1 bis 3 laufen lassen:
+Fügen Sie die Property `velocity` vom Typ `Int ein. 
+Als Startwert erzeugen wir einen zufälligen Werte für die Geschwindigkeit, indem wir einen Zufallsgenertor über das Interval von 1 bis 3 laufen lassen:
 ```
 ... = (1..3).random()
 ```
@@ -90,8 +87,8 @@ Testen Sie anschließend das Ergebnis
 
 ##### Bewegung
 Jetzt können wir ausrechnen, um wieviele Pixel der Roboter sich in x- und y-Richtung bewegen soll:
-Delta-X (also der Wert um den die x-Koordinate verändert werden soll, kurz `dx` und `dy`) ist das Produkt aus der Geschwindigkeit in x-Richtung
-`vx` und dem Cosinus des Drehwinkels. Genau genommen muss man den Drehwinkel noch um `90.degrees` verringern, dass die Ausrichtung 
+Delta-X (also der Wert um den die x-Koordinate verändert werden soll, kurz `dx` und `dy`) ist das Produkt aus der Geschwindigkeit
+und dem Cosinus des Drehwinkels (`dy` analog mit Sinus). Genau genommen muss man den Drehwinkel noch um `90.degrees` verringern, dass die Ausrichtung 
 Berechnung der Koordinaten passt. Unser Roboter schaut bei 0° nämlich nach oben und nicht nach rechts.
 Fügen Sie hinter der Rotationsanweisung in der `fahren()` Funktion die Berechnung für `dx` und `dy` aus.
 Hinweis: Um vom `drehwinkel` (Typ `Angle`) `90.degrees` subtrahieren zu können benötigen sie einen Minus-Operator, der dies beherrscht.
@@ -104,3 +101,15 @@ import com.soywiz.korma.geom.minus
 import com.soywiz.korma.geom.sin
 ```
 Alternativ können Sie die Imports auch [automatisch hinzufügen lassen](https://www.jetbrains.com/help/idea/creating-and-optimizing-imports.html)
+
+Testen Sie nun Ihr Projekt. Der Staubsauger sollte nun in die Richtung "schauen", in die er auch fährt.
+
+![Fenster](Bilder/staubiFaehrt.gif)
+
+Leider fährt er noch aus dem Bildschirm heraus. Dies wollen wir ändern, indem der Staubsauger nun
+Kollisionen erkennt.
+
+## Kollisionserkennung
+Unser Staubsauger soll nun erkennen können, wenn er gegen ein Hindernis fährt und dann umdrehen und eine andere Richtung einschlagen.
+Hierzu müssen wir erstmal Hindernisse platzieren. Da wir später auch den Kontakt mit aufzusaugendem Schmutz als Kollision handhaben wollen,
+implementieren wir die Hindernisse wie folgt:

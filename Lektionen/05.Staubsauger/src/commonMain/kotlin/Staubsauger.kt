@@ -11,11 +11,10 @@ import com.soywiz.korma.geom.sin
 
 
 class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
-    var vx : Int = (1..3).random()
-    var vy : Int = (1..3).random()
+    var velocity : Int = (1..3).random()
+
 
     var drehwinkel = (0..359).random().degrees
-
 
     init {
         scale = 0.06
@@ -33,8 +32,8 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
     fun fahren(){
         rotation(drehwinkel)
 
-        val dx = vx * cos(drehwinkel-90.degrees)
-        val dy  = vy * sin(drehwinkel-90.degrees)
+        val dx = velocity * cos(drehwinkel-90.degrees)
+        val dy  = velocity * sin(drehwinkel-90.degrees)
         x += dx
         y += dy
 
