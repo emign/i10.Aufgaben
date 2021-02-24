@@ -103,9 +103,6 @@ import com.soywiz.korma.geom.sin
 Alternativ können Sie die Imports auch [automatisch hinzufügen lassen](https://www.jetbrains.com/help/idea/creating-and-optimizing-imports.html)
 
 Testen Sie nun Ihr Projekt. Der Staubsauger sollte nun in die Richtung "schauen", in die er auch fährt.
-
-![Fenster](Bilder/staubiFaehrt.gif)
-
 Leider fährt er noch aus dem Bildschirm heraus. Dies wollen wir ändern, indem der Staubsauger nun
 Kollisionen erkennt.
 
