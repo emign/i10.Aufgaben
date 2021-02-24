@@ -166,4 +166,28 @@ val wandLinks = Wand(-100.0, hoeheStage)
 ergibt so Folgendes:
 ![Fenster](Bilder/waendeNegativ.png)
 
+### Jetzt knallt's wirklich
+Nachdem wir nun die Wände platziert haben, machen wir uns an die Kollisionerkennung.
+Wenn unser Staubsauter mit einem Objekt kollidiert, welches das Interface `Kollisionsrelevant`
+implementiert, soll er darauf reagieren. Wir kümmern uns erstmal nur um eine Kollision
+mit einem `Hindernis`. 
+Wenn ein `Hindernis` berührt wird, soll der Staubsauger also nicht mehr für `fahren()`, sondern für das Umkehren
+entscheiden.
+Wir fügen den Code hierfür in die Funktion `entscheiden()` in `Staubsauger.kt` ein:
+```
+        onCollision { 
+            drehwinkel += (150..210).random().degrees
+        }
+```
+
+Hinweis: Das der `drehwinkel` vom Typ `Angle` sinnvoll addiert werden kann, muss ein import am Anfang der Datei eingefügt werden: 
+```
+import com.soywiz.korma.geom.plus
+```
+
+Führen Sie ihr Projekt aus...
+
+#### Der Roboter spinnt
+
+
 

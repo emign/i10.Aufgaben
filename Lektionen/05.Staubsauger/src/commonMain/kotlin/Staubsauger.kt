@@ -1,12 +1,10 @@
-import com.soywiz.korge.view.BaseImage
-import com.soywiz.korge.view.Image
-import com.soywiz.korge.view.anchor
-import com.soywiz.korge.view.rotation
+import com.soywiz.korge.view.*
 import com.soywiz.korge.view.tween.rotateBy
 import com.soywiz.korim.bitmap.Bitmap
 import com.soywiz.korma.geom.cos
 import com.soywiz.korma.geom.degrees
 import com.soywiz.korma.geom.minus
+import com.soywiz.korma.geom.plus
 import com.soywiz.korma.geom.sin
 
 
@@ -26,6 +24,11 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
     }
 
     fun entscheiden(){
+
+        onCollision {
+            drehwinkel += (150..210).random().degrees
+        }
+
         fahren()
     }
 
@@ -36,9 +39,5 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
         val dy  = velocity * sin(drehwinkel-90.degrees)
         x += dx
         y += dy
-
-        println("$dx, $dy")
-
-
     }
 }
