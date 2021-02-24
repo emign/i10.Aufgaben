@@ -158,13 +158,6 @@ Erinnern Sie sich, dass sie die Höhe und Breite der Stage so abfragen können:
 val breiteStage = this.width
 val hoeheStage = this.height
 ```
-LPT: Sie können auch mit negativen Höhen und Breiten der Rechtecke arbeiten. 
-```
-val wandOben = Wand(breiteStage, -100.0)
-val wandLinks = Wand(-100.0, hoeheStage)
-```
-ergibt so Folgendes:
-![Fenster](Bilder/waendeNegativ.png)
 
 ### Jetzt knallt's wirklich
 Nachdem wir nun die Wände platziert haben, machen wir uns an die Kollisionerkennung.
@@ -173,7 +166,9 @@ implementiert, soll er darauf reagieren. Wir kümmern uns erstmal nur um eine Ko
 mit einem `Hindernis`. 
 Wenn ein `Hindernis` berührt wird, soll der Staubsauger also nicht mehr für `fahren()`, sondern für das Umkehren
 entscheiden.
-Wir fügen den Code hierfür in die Funktion `entscheiden()` in `Staubsauger.kt` ein:
+Wir fügen den Code hierfür in die Funktion `entscheiden()` in `Staubsauger.kt` ein.
+Unser Roboter soll sich an einem Hindernis umdrehen, aber nicht einfach um 180° kehrt machen.
+Deshalb addieren wir auf den momentan `drehwinkel` eine Zufallszahl zwischen 150 und 210 Grad:
 ```
         onCollision { 
             drehwinkel += (150..210).random().degrees
@@ -188,6 +183,24 @@ import com.soywiz.korma.geom.plus
 Führen Sie ihr Projekt aus...
 
 #### Der Roboter spinnt
+Komischerweise zappelt der Roboter nun herum wie verrückt. Unser Roboter verhält sich, als würde er ständig als würde er kollidieren.
+Dies ist auch so. Denn die Kollisionen werden automatisch zwischen allen View-Objekten auf der Stage erfasst. 
+Der Block `onCollision{}` wird von der Kollision des Staubsaugers mit dem Boden (ein `Image`!) ausgelöst.
+Glücklicherweise haben wir hierfür bereits die Lösung: Der Staubsauger soll nur auf Kollisionen mit Objekten reagieren,
+die `Kollisionsrelevant` sind. Wir filtern also die anderen Kollisionen heraus:
+```
+    fun entscheiden(){
+        fahren()
+        onCollision(filter = {
+            it is Kollisionsrelevant } ) {
+            drehwinkel += (170..190).random().degrees
+        }
+    }
+```
 
-
-
+#### Er spinnt immernoch ein bisschen
+Der Roboter fährt jetzt fröhlich an die Wände und "prallt" dort ab. Allerdings kann es passieren, dass er sich an den Wänden "verhakt" 
+und dort herum zappelt. Dies liegt daran, dass falls eine Kollision festgestellt wird, er zwar seinen Drehwinkel ändert, dies aber asynchron
+zum Gameloop geschieht. Der Code im `onCollision{}` Block wird parallel zum Gameloop ausgeführt und nicht seriell! Er ruft also `fahren()`
+parallel auf, was dazu führt, dass er in eingen Fällen in der Wand "stecken bleibt".
+Also müssen wir 

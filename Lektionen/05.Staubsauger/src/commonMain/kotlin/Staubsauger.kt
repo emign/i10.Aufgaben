@@ -1,16 +1,24 @@
+import com.soywiz.klock.DateTime
+import com.soywiz.klock.TimeSpan
+import com.soywiz.klock.milliseconds
+import com.soywiz.korge.time.delay
+import com.soywiz.korge.time.delayFrame
 import com.soywiz.korge.view.*
-import com.soywiz.korge.view.tween.rotateBy
+
 import com.soywiz.korim.bitmap.Bitmap
+import com.soywiz.korio.async.launch
+import com.soywiz.korio.lang.cancel
 import com.soywiz.korma.geom.cos
 import com.soywiz.korma.geom.degrees
 import com.soywiz.korma.geom.minus
 import com.soywiz.korma.geom.plus
 import com.soywiz.korma.geom.sin
+import com.soywiz.korma.geom.vector.VectorPath
+import com.soywiz.korma.geom.vector.circle
 
 
 class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
-    var velocity : Int = (1..3).random()
-
+    var velocity : Int = (5..15).random()
 
     var drehwinkel = (0..359).random().degrees
 
@@ -20,24 +28,25 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
         x = 300.0
         y = 200.0
 
-        println(drehwinkel)
+        hitShape{
+            circle(0.0,0.0,this@Staubsauger.width/2)
+        }
     }
 
-    fun entscheiden(){
-
-        onCollision {
-            drehwinkel += (150..210).random().degrees
-        }
-
+   fun entscheiden(){
+        onCollisionShape  (filter = {
+                it is Kollisionsrelevant } ) {
+                drehwinkel += (150..210).random().degrees
+            }
         fahren()
     }
 
     fun fahren(){
         rotation(drehwinkel)
-
         val dx = velocity * cos(drehwinkel-90.degrees)
         val dy  = velocity * sin(drehwinkel-90.degrees)
         x += dx
         y += dy
     }
 }
+

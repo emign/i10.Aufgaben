@@ -1,3 +1,4 @@
+import com.soywiz.klock.DateTime
 import com.soywiz.klock.milliseconds
 import com.soywiz.korge.view.*
 import com.soywiz.korge.view.tiles.TileMap
@@ -7,7 +8,10 @@ import com.soywiz.korim.bitmap.Bitmap
 import com.soywiz.korim.bitmap.Bitmap32
 import com.soywiz.korim.bitmap.BmpSlice
 import com.soywiz.korim.bitmap.slice
+import com.soywiz.korio.lang.Cancellable
+import com.soywiz.korio.lang.cancel
 import com.soywiz.korio.resources.Resourceable
+import kotlinx.coroutines.CompletableDeferred
 
 
 inline fun Container.bodenlegen(boden: Bitmap
@@ -15,3 +19,4 @@ inline fun Container.bodenlegen(boden: Bitmap
 ): TileMap = tileMap(Bitmap32(1,1), repeatX = TileMap.Repeat.REPEAT, repeatY = TileMap.Repeat.REPEAT,tileset = TileSet(mapOf(0 to boden.toBMP32().scaleLinear(0.5, 0.5).slice())))
 
 
+fun jetzt() = DateTime.nowUnixLong()
