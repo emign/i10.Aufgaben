@@ -1,17 +1,22 @@
 # Der Staubsaugerroboter
 
-## Vorbereitungen
+Wir wollen einen Staubsaugerroboter programmieren der selbstständig durch das Zimmer navigiert, 
+dabei Schmutz einsauge und Hindernisse registriert
 
+## Keywords
+Vererbung, interfaces, onCollision, sin, cos, Image, SolidRect
+
+## Vorbereitungen
 ### Boden legen
 
 Im Ordner `resources/boden/` finden sich einige vorbereitete Bodentexturen als .jpg Bilddateien. Eine Textur können Sie sich wie eine
 Kachel vorstellen. Eine einzelne Texturkachel ist zu klein, um in unserem Fall den ganzen Boden auszulegen.
 Also müssen wir sie in x- und y-Richtung wiederholt auslegen; ganz wie Fliesenkacheln.
 Hierzu gibt es eine vorgefertigte Funktion, die `bodenlegen(Bitmap)` heißt. Diese legt eine einzelne Kachel so oft auf den Boden, 
-dass der Boden in XY Richtung komplett gekachelt ist. Die Bodentextur bitte auch automatisch der Stage zugefügt
+dass der Boden in XY Richtung komplett gekachelt ist. Die Bodentextur wird dabei auch automatisch der Stage zugefügt
 
 1. Laden Sie ein Bitmap aus den vorgefertigten Bildern und übergeben Sie das PDF an die `bodenlegen(Bitmap)` Funktion.
-LPT: Mein schnellen Wechsel zwischen den Texturen zu ermöglichen können Sie diese mit der `arrayOf` Funktion in ein `Array<Bitmap>` laden.
+LPT: Um einen schnellen Wechsel zwischen den Texturen zu ermöglichen können Sie diese mit der `arrayOf` Funktion in ein `Array<Bitmap>` laden.
    Beispielcode:
    ```
     val boden = texturen[1] // texturen ist ein Array<Bitmap>
@@ -203,3 +208,8 @@ die `Kollisionsrelevant` sind. Wir filtern also die anderen Kollisionen heraus:
 ```
 
 Der Roboter fährt jetzt fröhlich an die Wände und "prallt" dort so ab, wie er soll. 
+
+Hinweis: In seltenen Fällen kann es sein, dass sich der Roboter komplett verhakt, wenn er in einem sehr
+flachen Winkel in eine Ecke fährt. Dieses Verhalten kann man abstellen, was den Code aber stark verkomplizieren
+würde. Deshalb nehmen wir es einfach als realistische Abbildung der Realität, in der sich Staubsauger-Roboter
+auch manchmal nicht aus einer Situation befreien können.

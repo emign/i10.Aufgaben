@@ -14,7 +14,7 @@ suspend fun main() = Korge(width = 800, height = 600, bgcolor = Colors["#2b2b2b"
 
     val boden = texturen[2]
 
-    bodenlegen(boden)
+     bodenlegen(boden)
 
     val staubsaugerBild = resourcesVfs["staubsauger.png"].readBitmap()
     val staubsauger = Staubsauger(staubsaugerBild)
