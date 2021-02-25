@@ -1,7 +1,7 @@
 import com.soywiz.korge.view.SolidRect
 
 object BubbleSortSchlau : Sortieralgorithmus() {
-    override var name: String = "Schlaur BubbleSort"
+    override var name: String = "Schlauer BubbleSort"
 
     override suspend fun sortieren(array: Array<SolidRect>) {
         // Blauer Zeigefinger

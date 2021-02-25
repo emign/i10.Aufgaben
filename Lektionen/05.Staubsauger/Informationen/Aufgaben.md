@@ -166,7 +166,8 @@ implementiert, soll er darauf reagieren. Wir kümmern uns erstmal nur um eine Ko
 mit einem `Hindernis`. 
 Wenn ein `Hindernis` berührt wird, soll der Staubsauger also nicht mehr für `fahren()`, sondern für das Umkehren
 entscheiden.
-Wir fügen den Code hierfür in die Funktion `entscheiden()` in `Staubsauger.kt` ein.
+Wir fügen den Code hierfür dem Staubsauger-Objekt hinzu. Hierfür gibt es einen speziellen Funktionsblock, mit der Bezeichnung `onCollision`.
+Diese kan
 Unser Roboter soll sich an einem Hindernis umdrehen, aber nicht einfach um 180° kehrt machen.
 Deshalb addieren wir auf den momentan `drehwinkel` eine Zufallszahl zwischen 150 und 210 Grad:
 ```

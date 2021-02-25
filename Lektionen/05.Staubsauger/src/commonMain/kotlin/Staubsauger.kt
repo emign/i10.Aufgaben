@@ -31,8 +31,6 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
             it is Kollisionsrelevant } ) {
             drehwinkel += (150..210).random().degrees
         }
-
-
     }
 
    fun entscheiden(){
