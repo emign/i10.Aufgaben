@@ -201,7 +201,7 @@ Der Block `onCollision{}` wird von der Kollision des Staubsaugers mit dem Boden 
 Glücklicherweise haben wir hierfür bereits die Lösung: Der Staubsauger soll nur auf Kollisionen mit Objekten reagieren,
 die `Kollisionsrelevant` sind. Wir filtern also die anderen Kollisionen heraus:
 ```
- onCollision   (filter = {
+ onCollision (filter = {
             it is Kollisionsrelevant } ) {
             zuruecksetzen()
         }
@@ -213,3 +213,14 @@ Hinweis: In seltenen Fällen kann es sein, dass sich der Roboter komplett verhak
 flachen Winkel in eine Ecke fährt. Dieses Verhalten kann man abstellen, was den Code aber stark verkomplizieren
 würde. Deshalb nehmen wir es einfach als realistische Abbildung der Realität, in der sich Staubsauger-Roboter
 auch manchmal nicht aus einer Situation befreien können.
+
+## Verschmutzen
+Wir wollen nun anfangen, den Boden zu verschmutzen. Hierzu beginnen wir mit einer einzelnen Schmutzart. Nämlich Staub.
+Erzeugen Sie eine Klasse `Staub` und lassen Sie diese von `BaseImage` erben und das Interface `Schmutz` implementieren.
+Als Konstruktorparameter soll `Staub` lediglich ein `Bitmap` erhalten. Dieses Bitmap laden Sie aus der Datei `resources/staub.png`
+Erzeugen Sie mit dem Staub-Bitmap ein Staub-Objekt in der `main.kt` und fügen Sie es zur Stage hinzu. Achten Sie darauf, seine `scale` Property so zu wählen,
+dass der Staub eine realistische Größe hat.
+Ausserdem sollen die x- und y-Koordinaten des Staub Objektes zufällig erzeugt werden: Hierfür können Sie in der `main.kt` auf die vorher schon
+erstellten Variablen `breiteStage` und `hoeheStage` zugreiden.
+Verwenden Sie anschließend eine `repeat(Int)` Schleife, um 10 Staub-Objekte zum Zimmer hinzuzufügen. 
+

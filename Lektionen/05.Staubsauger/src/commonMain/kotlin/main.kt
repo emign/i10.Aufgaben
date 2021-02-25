@@ -1,6 +1,7 @@
 import com.soywiz.korge.Korge
 import com.soywiz.korge.view.addUpdater
 import com.soywiz.korim.color.Colors
+import com.soywiz.korim.color.RGBA
 import com.soywiz.korim.format.readBitmap
 import com.soywiz.korio.file.std.resourcesVfs
 
@@ -49,6 +50,17 @@ suspend fun main() = Korge(width = 800, height = 600, bgcolor = Colors["#2b2b2b"
     addUpdater {
         staubsauger.aktion()
     }
+
+    val staubbild = resourcesVfs["staub.png"].readBitmap()
+    repeat(10) {
+        val staub = Staub(staubbild).apply {
+            scale = 0.06
+            x = (0..breiteStage.toInt()-(width*scale).toInt()).random().toDouble()
+            y = (0..hoeheStage.toInt()-(height*scale).toInt()).random().toDouble()
+        }
+        addChild(staub)
+    }
+
 
 }
 
