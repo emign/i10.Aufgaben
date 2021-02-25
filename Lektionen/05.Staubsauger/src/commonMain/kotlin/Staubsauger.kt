@@ -18,7 +18,7 @@ import com.soywiz.korma.geom.vector.circle
 
 
 class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
-    var velocity : Int = (5..15).random()
+    var velocity : Int = (1..3).random()
 
     var drehwinkel = (0..359).random().degrees
 
@@ -27,17 +27,16 @@ class Staubsauger(bitmap: Bitmap) : BaseImage(bitmap) {
         anchor(0.5, 0.5)
         x = 300.0
         y = 200.0
-
-        hitShape{
-            circle(0.0,0.0,this@Staubsauger.width/2)
+        onCollision   (filter = {
+            it is Kollisionsrelevant } ) {
+            drehwinkel += (150..210).random().degrees
         }
+
+
     }
 
    fun entscheiden(){
-        onCollisionShape  (filter = {
-                it is Kollisionsrelevant } ) {
-                drehwinkel += (150..210).random().degrees
-            }
+
         fahren()
     }
 
