@@ -1,7 +1,7 @@
 # Der Staubsaugerroboter
 
 Wir wollen einen Staubsaugerroboter programmieren der selbstständig durch das Zimmer navigiert, 
-dabei Schmutz einsauge und Hindernisse registriert
+dabei Schmutz einsaugt und Hindernisse registriert
 
 ## Keywords
 Vererbung, interfaces, onCollision, sin, cos, Image, SolidRect
@@ -15,7 +15,8 @@ Also müssen wir sie in x- und y-Richtung wiederholt auslegen; ganz wie Fliesenk
 Hierzu gibt es eine vorgefertigte Funktion, die `bodenlegen(Bitmap)` heißt. Diese legt eine einzelne Kachel so oft auf den Boden, 
 dass der Boden in XY Richtung komplett gekachelt ist. Die Bodentextur wird dabei auch automatisch der Stage zugefügt
 
-1. Laden Sie ein Bitmap aus den vorgefertigten Bildern und übergeben Sie das PDF an die `bodenlegen(Bitmap)` Funktion.
+1. Laden Sie ein Bitmap aus den vorgefertigten Bildern und übergeben Sie das Bittmap an die `bodenlegen(Bitmap)` Funktion.
+2. 
 LPT: Um einen schnellen Wechsel zwischen den Texturen zu ermöglichen können Sie diese mit der `arrayOf` Funktion in ein `Array<Bitmap>` laden.
    Beispielcode:
    ```
