@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="05.Staubsauger-jvm">
+    <output-path>$PROJECT_DIR$/Lektionen/05.Staubsauger/build/libs</output-path>
+    <root id="archive" name="05.Staubsauger-jvm.jar" />
+  </artifact>
+</component>

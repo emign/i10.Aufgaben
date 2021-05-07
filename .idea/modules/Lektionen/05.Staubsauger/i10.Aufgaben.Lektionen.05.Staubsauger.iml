@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger">
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/bundles" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/dependency-cache" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/docs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/libs" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/reports" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/resources" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/test-results" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../../Lektionen/05.Staubsauger/tmp" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

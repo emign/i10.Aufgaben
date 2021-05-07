@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Lektionen" />
+            <option value="$PROJECT_DIR$/Lektionen/01.Einführung" />
+            <option value="$PROJECT_DIR$/Lektionen/02.GameLoop" />
+            <option value="$PROJECT_DIR$/Lektionen/03.Planetensystem" />
+            <option value="$PROJECT_DIR$/Lektionen/04.Sortieralgorithmen" />
+            <option value="$PROJECT_DIR$/Lektionen/05.Staubsauger" />
+            <option value="$PROJECT_DIR$/Users" />
+            <option value="$PROJECT_DIR$/Users/nicolaiemig" />
+            <option value="$PROJECT_DIR$/Users/nicolaiemig/IdeaProjects" />
+            <option value="$PROJECT_DIR$/Users/nicolaiemig/IdeaProjects/i10.Aufgaben" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

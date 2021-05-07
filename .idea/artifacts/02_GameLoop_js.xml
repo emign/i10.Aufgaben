@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="02.GameLoop-js">
+    <output-path>$PROJECT_DIR$/Lektionen/02.GameLoop/build/libs</output-path>
+    <root id="archive" name="02.GameLoop-js.jar" />
+  </artifact>
+</component>
